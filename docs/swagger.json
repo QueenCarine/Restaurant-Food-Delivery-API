@@ -1,0 +1,900 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "FOOD DELIVERY APP",
+    "description": "API documentation for a Food Delivery App",
+    "version": "1.0.0"
+  },
+  "host": "localhost:5000",
+  "basePath": "/api/v1",
+  "schemes": ["http", "https"],
+  "paths": {
+    "/auth/register": {
+      "post": {
+        "summary": "SIGN UP",
+        "description": "SIGN UP",
+        "tags": ["Authentication"],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "schema": {
+              "$ref": "#/definitions/RegisterData"
+            },
+            "required": true,
+            "description": "Signup object"
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "User registered successfully"
+          }
+        }
+      }
+    },
+    "/auth/login": {
+      "post": {
+        "summary": "LOGIN",
+        "description": "LOGIN IN AN ALREADY EXISTING ACCOUNT",
+        "tags": ["Authentication"],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "schema": {
+              "$ref": "#/definitions/LoginData"
+            },
+            "required": true,
+            "description": "Sign into your account"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Login successful"
+          },
+          "404": {
+            "description": "Account not found"
+          }
+        }
+      }
+    },
+    "/user/getUser": {
+      "get": {
+        "summary": "GET USER",
+        "description": "GET USER DETAILS",
+        "tags": ["User"],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Bearer token",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "User details retrieved successfully"
+          },
+          "404": {
+            "description": "User not found"
+          }
+        }
+      }
+    },
+    "/user/updateUser": {
+      "put": {
+        "summary": "UPDATE USER",
+        "description": "UPDATE USER PROFILE",
+        "tags": ["User"],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Bearer token",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "schema": {
+              "$ref": "#/definitions/UserProfileUpdate"
+            },
+            "required": true,
+            "description": "Updated user profile object"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "User profile updated successfully"
+          },
+          "404": {
+            "description": "User not found"
+          }
+        }
+      }
+    },
+    "/user/updatePassword": {
+      "post": {
+        "summary": "UPDATE PASSWORD",
+        "description": "UPDATE USER PASSWORD",
+        "tags": ["User"],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Bearer token",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "schema": {
+              "$ref": "#/definitions/UpdatePassword"
+            },
+            "required": true,
+            "description": "Updated password object"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Password updated successfully"
+          },
+          "404": {
+            "description": "User not found"
+          }
+        }
+      }
+    },
+    "/user/resetPassword": {
+      "post": {
+        "summary": "RESET PASSWORD",
+        "description": "RESET USER PASSWORD",
+        "tags": ["User"],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Bearer token",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "schema": {
+              "$ref": "#/definitions/ResetPassword"
+            },
+            "required": true,
+            "description": "Reset password object"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Password reset successfully"
+          },
+          "404": {
+            "description": "User not found"
+          }
+        }
+      }
+    },
+    "/user/deleteUser/{id}": {
+      "delete": {
+        "summary": "DELETE USER",
+        "description": "DELETE USER PROFILE",
+        "tags": ["User"],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Bearer token",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID of the user profile to delete",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "User profile deleted successfully"
+          },
+          "404": {
+            "description": "User not found"
+          }
+        }
+      }
+    },
+    "/restaurant/create": {
+      "post": {
+        "summary": "CREATE RESTAURANT",
+        "description": "CREATE A NEW RESTAURANT",
+        "tags": ["Restaurant"],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Bearer token",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "schema": {
+              "$ref": "#/definitions/RestaurantCreate"
+            },
+            "required": true,
+            "description": "Restaurant object to be created"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Restaurant created successfully"
+          }
+        }
+      }
+    },
+    "/restaurant/getAll": {
+      "get": {
+        "summary": "GET ALL RESTAURANTS",
+        "description": "GET ALL RESTAURANTS",
+        "tags": ["Restaurant"],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Bearer token",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Retrieved all restaurants successfully"
+          }
+        }
+      }
+    },
+    "/restaurant/get/{id}": {
+      "get": {
+        "summary": "GET RESTAURANT BY ID",
+        "description": "GET A RESTAURANT BY ITS ID",
+        "tags": ["Restaurant"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID of the restaurant",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Restaurant retrieved successfully"
+          },
+          "404": {
+            "description": "Restaurant not found"
+          }
+        }
+      }
+    },
+    "/restaurant/delete/{id}": {
+      "delete": {
+        "summary": "DELETE RESTAURANT",
+        "description": "DELETE A RESTAURANT BY ID",
+        "tags": ["Restaurant"],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Bearer token",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID of the restaurant to delete",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Restaurant deleted successfully"
+          },
+          "404": {
+            "description": "Restaurant not found"
+          }
+        }
+      }
+    },
+    "/food/create": {
+      "post": {
+        "summary": "CREATE FOOD",
+        "description": "CREATE A NEW FOOD ITEM",
+        "tags": ["Food"],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Bearer token",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "schema": {
+              "$ref": "#/definitions/FoodCreate"
+            },
+            "required": true,
+            "description": "Food object to be created"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Food created successfully"
+          }
+        }
+      }
+    },
+    "/food/getAll": {
+      "get": {
+        "summary": "GET ALL FOODS",
+        "description": "GET ALL FOOD ITEMS",
+        "tags": ["Food"],
+        "responses": {
+          "200": {
+            "description": "Retrieved all foods successfully"
+          }
+        }
+      }
+    },
+    "/food/get/{id}": {
+      "get": {
+        "summary": "GET FOOD BY ID",
+        "description": "GET A FOOD ITEM BY ITS ID",
+        "tags": ["Food"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID of the food item",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Food retrieved successfully"
+          },
+          "404": {
+            "description": "Food not found"
+          }
+        }
+      }
+    },
+    "/food/getByRestaurant/{id}": {
+      "get": {
+        "summary": "GET FOOD BY RESTAURANT ID",
+        "description": "GET FOOD ITEMS BY RESTAURANT ID",
+        "tags": ["Food"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID of the restaurant",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Food items retrieved successfully"
+          },
+          "404": {
+            "description": "Restaurant not found"
+          }
+        }
+      }
+    },
+    "/food/update/{id}": {
+      "put": {
+        "summary": "UPDATE FOOD",
+        "description": "UPDATE A FOOD ITEM BY ID",
+        "tags": ["Food"],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Bearer token",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID of the food item to update",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "schema": {
+              "$ref": "#/definitions/FoodUpdate"
+            },
+            "required": true,
+            "description": "Updated food object"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Food updated successfully"
+          },
+          "404": {
+            "description": "Food not found"
+          }
+        }
+      }
+    },
+    "/food/delete/{id}": {
+      "delete": {
+        "summary": "DELETE FOOD",
+        "description": "DELETE A FOOD ITEM BY ID",
+        "tags": ["Food"],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Bearer token",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID of the food item to delete",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Food deleted successfully"
+          },
+          "404": {
+            "description": "Food not found"
+          }
+        }
+      }
+    },
+    "/food/placeorder": {
+      "post": {
+        "summary": "PLACE ORDER",
+        "description": "PLACE A NEW FOOD ORDER",
+        "tags": ["Food"],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Bearer token",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "schema": {
+              "$ref": "#/definitions/OrderPlace"
+            },
+            "required": true,
+            "description": "Order object to be placed"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Order placed successfully"
+          }
+        }
+      }
+    },
+    "/food/orderStatus/{id}": {
+      "post": {
+        "summary": "ORDER STATUS",
+        "description": "GET ORDER STATUS BY ID",
+        "tags": ["Food"],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Bearer token",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID of the order",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Order status retrieved successfully"
+          },
+          "404": {
+            "description": "Order not found"
+          }
+        }
+      }
+    },
+    "/category/create": {
+      "post": {
+        "summary": "CREATE CATEGORY",
+        "description": "CREATE A NEW CATEGORY",
+        "tags": ["Category"],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Bearer token",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "schema": {
+              "$ref": "#/definitions/CategoryCreate"
+            },
+            "required": true,
+            "description": "Category object to be created"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Category created successfully"
+          }
+        }
+      }
+    },
+    "/category/getAll": {
+      "get": {
+        "summary": "GET ALL CATEGORIES",
+        "description": "GET ALL CATEGORIES",
+        "tags": ["Category"],
+        "responses": {
+          "200": {
+            "description": "Retrieved all categories successfully"
+          }
+        }
+      }
+    },
+    "/category/update/{id}": {
+      "put": {
+        "summary": "UPDATE CATEGORY",
+        "description": "UPDATE A CATEGORY BY ID",
+        "tags": ["Category"],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Bearer token",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID of the category to update",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "schema": {
+              "$ref": "#/definitions/CategoryUpdate"
+            },
+            "required": true,
+            "description": "Updated category object"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Category updated successfully"
+          },
+          "404": {
+            "description": "Category not found"
+          }
+        }
+      }
+    },
+    "/category/delete/{id}": {
+      "delete": {
+        "summary": "DELETE CATEGORY",
+        "description": "DELETE A CATEGORY BY ID",
+        "tags": ["Category"],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Bearer token",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID of the category to delete",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Category deleted successfully"
+          },
+          "404": {
+            "description": "Category not found"
+          }
+        }
+      }
+    },
+    "/order/place": {
+      "post": {
+        "summary": "PLACE ORDER",
+        "description": "PLACE A NEW ORDER",
+        "tags": ["Order"],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Bearer token",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "schema": {
+              "$ref": "#/definitions/OrderPlace"
+            },
+            "required": true,
+            "description": "Order object to be placed"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Order placed successfully"
+          }
+        }
+      }
+    },
+    "/order/status/{id}": {
+      "get": {
+        "summary": "ORDER STATUS",
+        "description": "GET ORDER STATUS BY ID",
+        "tags": ["Order"],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Bearer token",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "id",
+            "in": "path",
+            "description": "ID of the order",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Order status retrieved successfully"
+          },
+          "404": {
+            "description": "Order not found"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "RegisterData": {
+      "type": "object",
+      "properties": {
+        "userName": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        },
+        "answer": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
+        },
+        "address": {
+          "type": "string"
+        },
+        "phone": {
+          "type": "string"
+        },
+        "userType": {
+          "type": "string"
+        }
+      },
+      "required": ["userName", "email", "answer", "password", "address", "phone"]
+    },
+    "LoginData": {
+      "type": "object",
+      "properties": {
+        "email": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
+        }
+      },
+      "required": ["email", "password"]
+    },
+    "UserProfileUpdate": {
+      "type": "object",
+      "properties": {
+        "userName": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        },
+        "address": {
+          "type": "string"
+        },
+        "phone": {
+          "type": "string"
+        }
+      },
+      "required": ["userName", "email", "address", "phone"]
+    },
+    "UpdatePassword": {
+      "type": "object",
+      "properties": {
+        "oldPassword": {
+          "type": "string"
+        },
+        "newPassword": {
+          "type": "string"
+        }
+      },
+      "required": ["oldPassword", "newPassword"]
+    },
+    "ResetPassword": {
+      "type": "object",
+      "properties": {
+        "email": {
+          "type": "string"
+        },
+        "answer": {
+          "type": "string"
+        },
+        "newPassword": {
+          "type": "string"
+        }
+      },
+      "required": ["email", "answer", "newPassword"]
+    },
+    "RestaurantCreate": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "location": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        }
+      },
+      "required": ["name", "location", "description"]
+    },
+    "FoodCreate": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "price": {
+          "type": "number"
+        },
+        "category": {
+          "type": "string"
+        },
+        "restaurantId": {
+          "type": "string"
+        }
+      },
+      "required": ["name", "description", "price", "category", "restaurantId"]
+    },
+    "FoodUpdate": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "price": {
+          "type": "number"
+        },
+        "category": {
+          "type": "string"
+        }
+      },
+      "required": ["name", "description", "price", "category"]
+    },
+    "OrderPlace": {
+      "type": "object",
+      "properties": {
+        "foodItems": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "totalPrice": {
+          "type": "number"
+        },
+        "userId": {
+          "type": "string"
+        }
+      },
+      "required": ["foodItems", "totalPrice", "userId"]
+    },
+    "CategoryCreate": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        }
+      },
+      "required": ["name", "description"]
+    },
+    "CategoryUpdate": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        }
+      },
+      "required": ["name", "description"]
+    }
+  }
+}
